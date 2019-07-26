@@ -1,0 +1,8 @@
+Create table barber(
+	Bid
+	Name
+	Address
+	Price
+	Rating
+	Primary key(bid)
+	);

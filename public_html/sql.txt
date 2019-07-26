@@ -1,9 +1,15 @@
+create table Location(
+	LID int,
+	Name varchar(128),
+	Coord int,
+	primary key(LID)
+);
 create table Barber(
 	BID int,
 	Name varchar(128),
-	Address int,
 	Price decimal(10,2),
 	Rating int,
+	LID int,
 	MenCut boolean,
 	CutShave boolean,
 	WomenCut boolean,
@@ -13,7 +19,7 @@ create table Barber(
 create table Customers(
 	CID int,
 	Name varchar(128),
-	Address int,
+	LID int,
 	primary key(CID)
 );
 create table Reviews(
@@ -32,8 +38,8 @@ create table Service(
 create table Schedule(
 	ScID int,
 	BID int,
-	Timefrom timestamp,
-	Timeto timestamp,
+	Time int,
+	Date int,
 	primary key(ScID),
 	foreign key(BID) references Barber(BID)
 );
@@ -52,10 +58,12 @@ create table Appointment(
 );
 create table ServiceProvided(
 	SVID int,
-	primary key(SVID),
 	AID int,
-	foreign key(AID) references Appointment(AID),
 	SID int,
-	foreign key(SID) references Service(SID),
-	Price decimal(10,2)
+	LID int,
+	Price decimal(10,2),
+	primary key(SVID),
+	foreign key(LID) references Location(LID),
+	foreign key(AID) references Appointment(AID),
+	foreign key(SID) references Service(SID)
 );

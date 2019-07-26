@@ -8,7 +8,7 @@ $array = array(array());
 $i = 0;
 
 
-$sqlLocation = "SELECT Address FROM Customers WHERE CID= ?";
+$sqlLocation = "SELECT LID FROM Customers WHERE CID= ?";
 $stmt1 = $mysqli->prepare($sqlLocation);
 $CustID = $_GET['CID'];
 $stmt1->bind_param('i', $CustID);
@@ -18,7 +18,7 @@ $stmt1->fetch();
 $stmt1->close();
 
 
-$sql = "SELECT Name, Price, Rating FROM Barber, Schedule WHERE Schedule.BID=Barber.BID AND Barber.MenCut >= ? AND Barber.CutShave >= ? AND Barber.WomenCut >= ? AND Barber.Colour >= ? AND Shedule.Time >= ? AND Schedule.Date= ?";
+$sql = "SELECT Name, Price, Rating, Time FROM Barber, Schedule WHERE Schedule.BID=Barber.BID AND Barber.MenCut >= ? AND Barber.CutShave >= ? AND Barber.WomenCut >= ? AND Barber.Colour >= ? AND Schedule.Time = ? AND Schedule.Date= ?";
 $stmt = $mysqli->prepare($sql);
 
 $MenCut = $_GET['MenCut']; 
@@ -29,13 +29,14 @@ $desiredTime = $_GET['Time'];
 $desiredDate =  $_GET['Date'];
 $stmt->bind_param('iiiiii', $MenCut, $CutShave, $WomenCut, $Colour, $desiredTime, $desiredDate);
 $stmt->execute();
-$stmt->bind_result($name, $price, $rating); 
+$stmt->bind_result($name, $price, $rating, $time); 
 
 while ($stmt->fetch()){
 
     $array[$i][0] = $name;
     $array[$i][1] = $price;
     $array[$i][2] = $rating;
+    $array[$i][3] = $time;
 
     $i = $i + 1;
 
@@ -72,21 +73,16 @@ $mysqli->close();
 <p class="style1"></p>
 <div style="text-align: center; margin:auto;">
 <?php 
+    echo "<h2>Name Price Rating Time<h2>";
 for($x = 0; $x < sizeof($array) ; $x++) {
-    echo $array[$x][0],"  ", $array[$x][1], "<h2>  ". $array[$x][2] ."</h2><br>";
+    $bname = $array[$x][0];
+    $price = $array[$x][1];
+    $rating = $array[$x][2];
+    $time = $array[$x][3];
+    echo $array[$x][0],"  ", $array[$x][1], " ", $array[$x][2] , " ","<a href='booking.html?bname=$bname&price=$price&rating=$rating&time=$time'>". $array[$x][3] ."</a>" ,"<br>";
 }
 ?>
 
-<p><strong> b_name </strong> $price distance rating/5</p>
-<br>
-<p><strong> b_name </strong> $price distance rating/5</p>
-<br>
-<p><strong> b_name </strong> $price distance rating/5</p>
-<br>
-<p><strong> b_name </strong> $price distance rating/5</p>
-<br>
-<p><strong> b_name </strong> $price distance rating/5</p>
-<br>
 </div>
 <div style="text-align: center;">
     <a href="booking.html"><p class="style1"><strong>Done!</strong></p></a>
