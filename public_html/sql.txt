@@ -1,0 +1,61 @@
+create table Barber(
+	BID int,
+	Name varchar(128),
+	Address int,
+	Price decimal(10,2),
+	Rating int,
+	MenCut boolean,
+	CutShave boolean,
+	WomenCut boolean,
+	Colour boolean,
+	primary key(BID)
+);
+create table Customers(
+	CID int,
+	Name varchar(128),
+	Address int,
+	primary key(CID)
+);
+create table Reviews(
+	BID int,
+	CID int,
+	Critique varchar(30),
+	Rating int,
+	foreign key(BID) references Barber(BID),
+	foreign key(CID) references Customers(CID)
+);
+create table Service(
+	SID int,
+	Price int,
+	primary key(SID)
+);
+create table Schedule(
+	ScID int,
+	BID int,
+	Timefrom timestamp,
+	Timeto timestamp,
+	primary key(ScID),
+	foreign key(BID) references Barber(BID)
+);
+create table Appointment(
+	AID int,
+	primary key(AID),
+	CID int,
+	foreign key(CID) references Customers(CID),
+	BID int,
+	foreign key(BID) references Barber(BID),
+	ClientName varchar(128),
+	ClientContact varchar(128),
+	startTime timestamp,
+	endTime timestamp,
+	Price decimal(10,2)
+);
+create table ServiceProvided(
+	SVID int,
+	primary key(SVID),
+	AID int,
+	foreign key(AID) references Appointment(AID),
+	SID int,
+	foreign key(SID) references Service(SID),
+	Price decimal(10,2)
+);
