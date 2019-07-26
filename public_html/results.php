@@ -5,6 +5,7 @@ $dbpassword = 'Spring@*%2019';
 $dbname = 'ryuong';
 $mysqli = new mysqli($dbhost, $dbuser, $dbpassword, $dbname);
 $array = array(array());
+
 $i = 0;
 
 
@@ -18,7 +19,7 @@ $stmt1->fetch();
 $stmt1->close();
 
 
-$sql = "SELECT Name, Price, Rating, Time FROM Barber, Schedule WHERE Schedule.BID=Barber.BID AND Barber.MenCut >= ? AND Barber.CutShave >= ? AND Barber.WomenCut >= ? AND Barber.Colour >= ? AND Schedule.Time = ? AND Schedule.Date= ?";
+$sql = "SELECT Name, Price, Rating, Time, LID, Barber.BID FROM Barber, Schedule WHERE Schedule.BID=Barber.BID AND Barber.MenCut >= ? AND Barber.CutShave >= ? AND Barber.WomenCut >= ? AND Barber.Colour >= ? AND Schedule.Time = ? AND Schedule.Date= ? AND NOT EXISTS (SELECT*FROM Appointments WHERE Appointments.BID=Schedule.BID AND Appointments.Time=Schedule.Time AND Appointments.Date=Schedule.Date)";
 $stmt = $mysqli->prepare($sql);
 
 $MenCut = $_GET['MenCut']; 
@@ -29,7 +30,7 @@ $desiredTime = $_GET['Time'];
 $desiredDate =  $_GET['Date'];
 $stmt->bind_param('iiiiii', $MenCut, $CutShave, $WomenCut, $Colour, $desiredTime, $desiredDate);
 $stmt->execute();
-$stmt->bind_result($name, $price, $rating, $time); 
+$stmt->bind_result($name, $price, $rating, $time, $loc,$BID); 
 
 while ($stmt->fetch()){
 
@@ -37,6 +38,8 @@ while ($stmt->fetch()){
     $array[$i][1] = $price;
     $array[$i][2] = $rating;
     $array[$i][3] = $time;
+    $array[$i][4] = $loc;
+    $array[$i][5] = $BID;
 
     $i = $i + 1;
 
@@ -79,12 +82,11 @@ for($x = 0; $x < sizeof($array) ; $x++) {
     $price = $array[$x][1];
     $rating = $array[$x][2];
     $time = $array[$x][3];
-    echo $array[$x][0],"  ", $array[$x][1], " ", $array[$x][2] , " ","<a href='booking.html?bname=$bname&price=$price&rating=$rating&time=$time'>". $array[$x][3] ."</a>" ,"<br>";
+    $loc = $array[$x][4];
+    $BID = $array[$x][5];
+    echo $array[$x][0],"  ", $array[$x][1], " ", $array[$x][2] , " ","<a href='booking.php?bname=$bname&price=$price&rating=$rating&time=$time&loc=$loc&date=$desiredDate&MC=$MenCut&CS=$CutShave&WC=$WomenCut&C=$Colour&CusID=$CustID&BarbID=$BID'>". $array[$x][3] ."</a>" ,"<br>";
 }
 ?>
 
-</div>
-<div style="text-align: center;">
-    <a href="booking.html"><p class="style1"><strong>Done!</strong></p></a>
 </div>
 </body>
