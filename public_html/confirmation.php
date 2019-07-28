@@ -27,7 +27,7 @@ $stmt->close();
 </style>
 </head>
 
-<body>
+<body style="text-align: center;">
 <center>
 <p class="style2">Capillum</p>
 <br>
@@ -36,9 +36,12 @@ $stmt->close();
 </center>
 <p class="style1"></p>
 <div style="text-align: center;">
-<a href="review.php"><p class="style1"><strong>See you at your appointment!</strong></p></a>
+<a href="index.html"><p class="style1"><strong>See you at your appointment!</strong></p></a>
 
 </div>
+
+<a href='cancel.php?AID=1'>If you would like to cancel your appointment click here!</a>
+
 </body>
 
 </html>

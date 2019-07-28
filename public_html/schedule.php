@@ -31,7 +31,6 @@ $mysqli->close();
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>Welcome to Management Science Webspace</title>
 <style type="text/css">
 <!--
 .style1 {font-family: Arial, Helvetica, sans-serif}
@@ -42,7 +41,7 @@ $mysqli->close();
 
 <body>
 <center>
-<p class="style2">Barber Guy Finder xD</p>
+<p class="style2">Capillum</p>
 <br>
 <p class="style2">Results </p>
 <p>
@@ -53,7 +52,7 @@ $mysqli->close();
 <p class="style1"></p>
 <div style="text-align: center; margin:auto;">
 <?php 
-    echo "<h2>Name Price Rating Time<h2>";
+    echo "<h2>Name Activity <h2>";
 for($x = 0; $x < sizeof($array) ; $x++) {
     $bname = $array[$x][0];
     $price = $array[$x][1];
@@ -61,7 +60,7 @@ for($x = 0; $x < sizeof($array) ; $x++) {
     $time = $array[$x][3];
     $loc = $array[$x][4];
     $BID = $array[$x][5];
-    echo $array[$x][0],"  ", $array[$x][1], " ", $array[$x][2] , " ","<a href='booking.php?bname=$bname&price=$price&rating=$rating&time=$time&loc=$loc&date=$desiredDate&MC=$MenCut&CS=$CutShave&WC=$WomenCut&C=$Colour&CusID=$CustID&BarbID=$BID'>". $array[$x][3] ."</a>" ,"<br>";
+    echo "<p3>". $array[$x][0],"  ", $array[$x][1], " ", $array[$x][2] , " ","<a href='booking.php?bname=$bname&price=$price&rating=$rating&time=$time&loc=$loc&date=$desiredDate&MC=$MenCut&CS=$CutShave&WC=$WomenCut&C=$Colour&CusID=$CustID&BarbID=$BID'>". $array[$x][3] ."</a>" ,"<br>" ."</p3>";
 }
 ?>
 

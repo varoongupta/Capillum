@@ -37,7 +37,7 @@ $mysqli->close();
 </style>
 </head>
 
-<body>
+<body style="text-align: center;">
 <center>
 <p class="style2">Capillum</p>
 <br>
@@ -147,6 +147,7 @@ $mysqli->close();
 </form>
 </div>
 
+
 <?php 
 echo "<a href='confirmation.php?
 n=$aname
@@ -156,5 +157,6 @@ n=$aname
 &C=$aCustID
 &B=$aBID'>Confirm</a>";
 ?>
+
 </body>
 

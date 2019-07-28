@@ -36,7 +36,7 @@ $mysqli->close();
 
 <body>
 <center>
-<p class="style2">Barber Guy Finder xD</p>
+<p class="style2">Capillum</p>
 <p class="style2">Welcome Back <?php echo $name; ?></p>
 <p></p>
 
@@ -67,10 +67,6 @@ $mysqli->close();
       <option value="27">July 27</option>
       <option value="28">July 28</option>
     </select>
-  <p><strong>Max Distance:</strong></p>
-    <input type="text" name = "maxDistance">
-  <p><strong>Max Price:</strong></p>
-    <input type="text" name = "maxPrice">
   <p><strong>Mens Cut:</strong></p>
   <select name="MenCut">
     <option value="0">---</option>
